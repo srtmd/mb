@@ -1,1 +1,324 @@
-a
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastur - Bar e Drinks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Navbar Flutuante */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 1000px;
+            background: rgba(40, 40, 40, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 100, 100, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #81c784;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .navbar ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: #81c784;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://offloadmedia.feverup.com/saopaulosecreto.com/wp-content/uploads/2021/09/13082913/362281752_18304281550098303_5715803737817938909_n-1024x768.jpg') no-repeat center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .hero .overlay {
+            position: relative;
+            z-index: 2;
+            background: rgba(40, 40, 40, 0.7);
+            padding: 3rem 4rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 100, 100, 0.3);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #81c784;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+
+        .hero .cta-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: #81c784;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .hero .cta-button:hover {
+            background: #66bb6a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Seção Sobre */
+        .about {
+            padding: 5rem 2rem;
+            background: rgba(40, 40, 40, 0.5);
+            border: 1px solid rgba(100, 100, 100, 0.3);
+            margin: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .about .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #81c784;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+
+        /* Seção Drinks */
+        .drinks {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .drinks h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #81c784;
+        }
+
+        .drink-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .drink-card {
+            background: rgba(40, 40, 40, 0.5);
+            border: 1px solid rgba(100, 100, 100, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .drink-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .drink-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #81c784;
+        }
+
+        .drink-card p {
+            font-size: 1rem;
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(40, 40, 40, 0.5);
+            border-top: 1px solid rgba(100, 100, 100, 0.3);
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+
+        footer a {
+            color: #81c784;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #66bb6a;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .navbar {
+                width: 90%;
+            }
+
+            .navbar ul {
+                gap: 1rem;
+            }
+
+            .navbar ul li a {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Mastur Bar</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#drinks">Drinks</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="overlay">
+            <h1>Bem-vindo ao Mastur Bar</h1>
+            <p>No coração do centro de São Paulo, oferecemos os melhores drinks brasileiros, com destaque para nossas caipirinhas artesanais. Venha viver a experiência!</p>
+            <a href="#drinks" class="cta-button">Conheça Nossos Drinks</a>
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Sobre o Mastur Bar</h2>
+            <p>Localizado no vibrante centro da Grande São Paulo, o Mastur Bar é o lugar perfeito para quem busca drinks de qualidade em um ambiente moderno e acolhedor. Somos apaixonados por coquetelaria brasileira, especialmente pela caipirinha, preparada com ingredientes frescos e um toque de criatividade.</p>
+        </div>
+    </section>
+
+    <!-- Drinks Section -->
+    <section id="drinks" class="drinks">
+        <h2>Nossos Drinks</h2>
+        <div class="drink-grid">
+            <div class="drink-card">
+                <h3>Caipirinha Clássica</h3>
+                <p>Cachaça artesanal, limão-taiti, açúcar e muito gelo. O sabor do Brasil em um copo.</p>
+            </div>
+            <div class="drink-card">
+                <h3>Caipirinha de Frutas</h3>
+                <p>Escolha entre maracujá, morango ou abacaxi. Refrescante e tropical!</p>
+            </div>
+            <div class="drink-card">
+                <h3>Mojito Brasileiro</h3>
+                <p>Uma releitura com cachaça, hortelã, limão e soda. Perfeito para noites quentes.</p>
+            </div>
+            <div class="drink-card">
+                <h3>Batida de Coco</h3>
+                <p>Cachaça, leite condensado e coco fresco. Doce e irresistível, o preferido do Gugu Liberato.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p>Mastur Bar - Centro, São Paulo | Contato: <a href="tel:+5511969420420">(11) 96942-0420</a> | Email: <a href="mailto:contato@mastur.bar">contato@mastur.bar</a> | Instagram: <a href="https://instagram.com/masturbarsao">@masturbarsao</a></p>
+    </footer>
+</body>
+</html>
