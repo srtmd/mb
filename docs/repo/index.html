@@ -3,7 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotonFixer Mod Download</title>
+    <title>PhotonFixer Mod Download - R.E.P.O. Private Servers</title>
+    <meta name="description" content="Download PhotonFixer Mod to replace R.E.P.O. Photon servers with optimized private servers for an enhanced gaming experience. Choose Public, Beta, or Dev versions.">
+    <meta name="keywords" content="PhotonFixer mod, R.E.P.O. mod, gaming mod, private servers, download mod, game optimization">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Mastur.Bar Team">
+    <link rel="icon" type="image/x-icon" href="fav.ico">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="PhotonFixer Mod Download - R.E.P.O. Private Servers">
+    <meta property="og:description" content="Download PhotonFixer Mod to optimize your gaming with private servers. Supports Public, Beta, and Dev versions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mastur.bar">
+    <meta property="og:image" content="logo.jpg">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PhotonFixer Mod Download - R.E.P.O. Private Servers">
+    <meta name="twitter:description" content="Download PhotonFixer Mod for optimized gaming with private servers. Available in Public, Beta, and Dev versions.">
+    <meta name="twitter:image" content="logo.jpg">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mastur.bar">
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -184,6 +205,11 @@
             color: #ffffff;
             margin-bottom: 15px;
         }
+        .modal-content h3 {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin: 10px 0;
+        }
         .modal-content ul {
             list-style: none;
             padding: 0;
@@ -205,16 +231,17 @@
             background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
         }
         .close-btn {
-            background: linear-gradient(90deg, #2a3f5a 0%, #3b567a 100%);
+            background: linear-gradient(90deg, #5a2a2a 0%, #7a3b3b 100%);
             color: #ffffff;
             padding: 10px 20px;
             border-radius: 6px;
             border: none;
+            font-family: 'Poppins', sans-serif;
             font-weight: 500;
             cursor: pointer;
         }
         .close-btn:hover {
-            background: linear-gradient(90deg, #3b567a 0%, #4c739a 100%);
+            background: linear-gradient(90deg, #7a3b3b 0%, #9a4c4c 100%);
         }
         @media (max-width: 600px) {
             h1 {
@@ -240,9 +267,9 @@
     </style>
 </head>
 <body>
-    <h1>PhotonFixer Mod Download</h1>
+    <h1>PhotonFixer Mod for R.E.P.O.</h1>
     <p>
-        The PhotonFixer Mod replaces Photon servers with private servers, optimizing your gaming experience. Select the version compatible with your game branch below.
+        PhotonFixer replaces R.E.P.O. Photon servers with private servers, optimizing your gaming experience.
     </p>
     <div class="download-section">
         <div class="custom-select">
@@ -252,19 +279,22 @@
         <a href="#" id="downloadBtn" class="download-btn">Download</a>
     </div>
     <div class="version-info">
-        <span>Selected: <span id="selectedVersion">Loading...</span></span>
+        <span>Make sure you are downloading the correct version.</span>
     </div>
     <div class="button-group">
-        <a href="https://store.steampowered.com/app/YOUR_GAME_ID" class="steam-btn">
+        <a href="https://store.steampowered.com/app/3241660" target="_blank" class="steam-btn">
             <i class="fab fa-steam"></i> Get the Game on Steam
         </a>
-        <a href="#" class="mirror-btn" onclick="openModal()">Get the Game Mirror</a>
+        <a href="#" class="steam-btn" onclick="openModal()"><i class="fab fa-windows"></i> Get the Game Mirror</a>
     </div>
 
     <div id="mirrorModal" class="modal">
         <div class="modal-content">
             <h2>R.E.P.O. Mirrors</h2>
-            <ul id="mirrorList"></ul>
+            <h3>Public Version</h3>
+            <ul id="publicMirrorList"></ul>
+            <h3>Beta Version</h3>
+            <ul id="betaMirrorList"></ul>
             <button class="close-btn" onclick="closeModal()">Close</button>
         </div>
     </div>
@@ -274,9 +304,19 @@
         const selectSelected = customSelect.querySelector('.select-selected');
         const selectItems = customSelect.querySelector('.select-items');
         const downloadBtn = document.getElementById('downloadBtn');
-        const selectedVersion = document.getElementById('selectedVersion');
         const mirrorModal = document.getElementById('mirrorModal');
-        const mirrorList = document.getElementById('mirrorList');
+        const publicMirrorList = document.getElementById('publicMirrorList');
+        const betaMirrorList = document.getElementById('betaMirrorList');
+
+        // Function to extract domain name from URL
+        function getDomainName(url) {
+            try {
+                const hostname = new URL(url).hostname;
+                return hostname.replace(/^www\./, '');
+            } catch (e) {
+                return 'Unknown';
+            }
+        }
 
         // Fetch JSON data
         fetch('info.json')
@@ -294,7 +334,6 @@
                 // Set initial state
                 selectSelected.textContent = data.info[0].version;
                 downloadBtn.href = data.info[0].url;
-                selectedVersion.textContent = data.info[0].version.includes('Public') ? 'v0.1.2' : 'v0.1.2.22_beta';
 
                 // Dropdown interaction
                 selectSelected.addEventListener('click', () => {
@@ -306,25 +345,34 @@
                         selectSelected.textContent = option.textContent;
                         selectItems.classList.remove('show');
                         downloadBtn.href = option.getAttribute('data-url');
-                        selectedVersion.textContent = option.textContent.includes('Public') ? 'v0.1.2' : 'v0.1.2.22_beta';
                     });
                 });
 
-                // Populate mirror modal
-                data.mirror[0].dl.forEach((url, index) => {
+                // Populate public mirror list
+                data.mirror[0].public.forEach((url, index) => {
                     const li = document.createElement('li');
                     const a = document.createElement('a');
                     a.href = url;
-                    a.textContent = `Mirror ${index + 1}`;
+                    a.innerHTML = `<i class="fa-solid fa-download"></i> ${getDomainName(url)}`;
                     a.target = '_blank';
                     li.appendChild(a);
-                    mirrorList.appendChild(li);
+                    publicMirrorList.appendChild(li);
+                });
+
+                // Populate beta mirror list
+                data.mirror[0].beta.forEach((url, index) => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.innerHTML = `<i class="fa-solid fa-download"></i> ${getDomainName(url)}`;
+                    a.target = '_blank';
+                    li.appendChild(a);
+                    betaMirrorList.appendChild(li);
                 });
             })
             .catch(error => {
                 console.error('Error fetching info.json:', error);
                 selectSelected.textContent = 'Error';
-                selectedVersion.textContent = 'Error';
             });
 
         // Close dropdown when clicking outside

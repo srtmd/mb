@@ -2,20 +2,22 @@
   "info": [
     {
       "version": "Public (v0.1.2)",
-      "url": "https://link1.com",
+      "url": "https://qiwi.gg/file/ppea0845-PhotonFixer012"
     },
     {
       "version": "Beta (v0.1.2.22_beta)",
-      "url": "https://link2.com"
+      "url": "https://qiwi.gg/file/uwYK1583-PhotonFixer22"
     }
-  ]
+  ],
 	"mirror": [
     {
       "title": "R.E.P.O. Mirrors",
-      "dl": [
-        "https://download.io/d/C0Wj5",
-        "https://getnow.com/u/hbFBtBc",
-        "https://upload.gg/file/REPOv0"
+      "public": [
+        "https://multiup.io/4fb49b99d939482c2b059c44b6a95105",
+        "https://multiup.io/3db7861acc3dd37ac3b291c594f84ac4"
+      ],
+      "beta": [
+        "https://multiup.io/fcd60471ffad1dabb554f7398d6542db"
       ]
     }
   ]
