@@ -1,1 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotonFixer Mod Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 100%);
+            color: #e0e0e5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #b0b0c0;
+            margin: 0 auto 25px;
+            font-weight: 300;
+            max-width: 600px;
+            text-align: center;
+        }
+        .download-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .custom-select {
+            position: relative;
+            min-width: 200px;
+            cursor: pointer;
+        }
+        .select-selected {
+            background: linear-gradient(90deg, #2a3f5a 0%, #3b567a 100%);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .select-selected::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 5px transparent solid;
+            border-right: 5px transparent solid;
+            border-top: 6px solid #ffffff;
+            margin-left: 10px;
+        }
+        .select-items {
+            position: absolute;
+            background: #2a3f5a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            margin-top: 5px;
+            display: none;
+        }
+        .select-items div {
+            padding: 10px 24px;
+            color: #ffffff;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .select-items div:hover {
+            background: #3b567a;
+        }
+        .select-items.show {
+            display: block;
+        }
+        .download-btn {
+            background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            text-align: center;
+        }
+        .download-btn:hover {
+            background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .download-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .version-info {
+            font-size: 0.85em;
+            color: #8b8b9b;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .version-info span {
+            font-weight: 400;
+        }
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .steam-btn, .mirror-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, #1a252f 0%, #2a3f5a 100%);
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .steam-btn i {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        .steam-btn:hover, .mirror-btn:hover {
+            background: linear-gradient(90deg, #2a3f5a 0%, #3b567a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 63, 90, 0.3);
+        }
+        .steam-btn:active, .mirror-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-content {
+            background: #1a1a3a;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .modal-content h2 {
+            font-size: 1.5em;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+        }
+        .modal-content li {
+            margin: 10px 0;
+        }
+        .modal-content a {
+            display: block;
+            background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .modal-content a:hover {
+            background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
+        }
+        .close-btn {
+            background: linear-gradient(90deg, #2a3f5a 0%, #3b567a 100%);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            background: linear-gradient(90deg, #3b567a 0%, #4c739a 100%);
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            p {
+                font-size: 1em;
+                margin-bottom: 20px;
+            }
+            .custom-select, .download-btn {
+                min-width: 140px;
+            }
+            .download-section, .button-group {
+                gap: 8px;
+            }
+            .version-info {
+                font-size: 0.8em;
+            }
+            .modal-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>PhotonFixer Mod Download</h1>
+    <p>
+        The PhotonFixer Mod replaces Photon servers with private servers, optimizing your gaming experience. Select the version compatible with your game branch below.
+    </p>
+    <div class="download-section">
+        <div class="custom-select">
+            <div class="select-selected">Loading...</div>
+            <div class="select-items"></div>
+        </div>
+        <a href="#" id="downloadBtn" class="download-btn">Download</a>
+    </div>
+    <div class="version-info">
+        <span>Selected: <span id="selectedVersion">Loading...</span></span>
+    </div>
+    <div class="button-group">
+        <a href="https://store.steampowered.com/app/YOUR_GAME_ID" class="steam-btn">
+            <i class="fab fa-steam"></i> Get the Game on Steam
+        </a>
+        <a href="#" class="mirror-btn" onclick="openModal()">Get the Game Mirror</a>
+    </div>
 
+    <div id="mirrorModal" class="modal">
+        <div class="modal-content">
+            <h2>R.E.P.O. Mirrors</h2>
+            <ul id="mirrorList"></ul>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const customSelect = document.querySelector('.custom-select');
+        const selectSelected = customSelect.querySelector('.select-selected');
+        const selectItems = customSelect.querySelector('.select-items');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const selectedVersion = document.getElementById('selectedVersion');
+        const mirrorModal = document.getElementById('mirrorModal');
+        const mirrorList = document.getElementById('mirrorList');
+
+        // Fetch JSON data
+        fetch('info.json')
+            .then(response => response.json())
+            .then(data => {
+                // Populate dropdown
+                data.info.forEach((item, index) => {
+                    const option = document.createElement('div');
+                    option.setAttribute('data-value', item.version.toLowerCase());
+                    option.setAttribute('data-url', item.url);
+                    option.textContent = item.version;
+                    selectItems.appendChild(option);
+                });
+
+                // Set initial state
+                selectSelected.textContent = data.info[0].version;
+                downloadBtn.href = data.info[0].url;
+                selectedVersion.textContent = data.info[0].version.includes('Public') ? 'v0.1.2' : 'v0.1.2.22_beta';
+
+                // Dropdown interaction
+                selectSelected.addEventListener('click', () => {
+                    selectItems.classList.toggle('show');
+                });
+
+                selectItems.querySelectorAll('div').forEach(option => {
+                    option.addEventListener('click', () => {
+                        selectSelected.textContent = option.textContent;
+                        selectItems.classList.remove('show');
+                        downloadBtn.href = option.getAttribute('data-url');
+                        selectedVersion.textContent = option.textContent.includes('Public') ? 'v0.1.2' : 'v0.1.2.22_beta';
+                    });
+                });
+
+                // Populate mirror modal
+                data.mirror[0].dl.forEach((url, index) => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.textContent = `Mirror ${index + 1}`;
+                    a.target = '_blank';
+                    li.appendChild(a);
+                    mirrorList.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching info.json:', error);
+                selectSelected.textContent = 'Error';
+                selectedVersion.textContent = 'Error';
+            });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!customSelect.contains(e.target)) {
+                selectItems.classList.remove('show');
+            }
+        });
+
+        // Modal functions
+        function openModal() {
+            mirrorModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            mirrorModal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
